@@ -1,0 +1,14 @@
+aws dynamodb scan \
+    --table-name ProductCatalog \
+    --filter-expression "BicycleType = :a" \
+    --projection-expression "#id, #title" \
+    --expression-attribute-names file://expression-attribute-names.json \
+    --expression-attribute-values file://expression-attribute-values.json
+
+
+aws dynamodb query \
+    --table-name ProductCatalog \
+    --projection-expression "Title,Description,BicycleType,Brand,Price,ProductCategory" \
+    --key-condition-expression "Id = :v1" \
+    --expression-attribute-values file://expression-attributes.json \
+    --return-consumed-capacity TOTAL
